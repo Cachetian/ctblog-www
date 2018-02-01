@@ -1,0 +1,79 @@
+<mvc:View controllerName="com.cachetian.ui5app.App" xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form" xmlns:mvc="sap.ui.core.mvc">
+	<App afterNavigate="onAfterNavigate">
+		<pages>
+			<Page showHeader="false">
+				<content>
+					<Table inset="false" items="{
+						path: '/Orders',
+						sorter: {
+							path: 'DocumentDate'
+						}
+					}">
+						<headerToolbar>
+							<Toolbar>
+								<Title text="Order Items" level="H2"/>
+							</Toolbar>
+						</headerToolbar>
+						<columns>
+							<Column width="12em">
+								<Text text="Order Items"/>
+							</Column>
+						</columns>
+						<items>
+							<ColumnListItem type="Navigation" press="onPress_Item">
+								<cells>
+									<ObjectIdentifier title="{Customer}" text="{OrderId}"/>
+								</cells>
+							</ColumnListItem>
+						</items>
+					</Table>
+				</content>
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button text="Add" press="onPress_Add" visible="false"/>
+						<Button text="Delete" type="Reject" press="onPress_Delete" visible="false"/>
+					</Toolbar>
+				</footer>
+			</Page>
+			<Page showNavButton="true" navButtonPress="onPress_NavBack">
+				<content>
+					<f:SimpleForm
+						id="itemForm"
+						editable="false"
+						layout="ResponsiveGridLayout"
+						title="Order Item"
+						labelSpanXL="3"
+						labelSpanL="3"
+						labelSpanM="3"
+						labelSpanS="12"
+						adjustLabelSpan="false"
+						emptySpanXL="4"
+						emptySpanL="4"
+						emptySpanM="4"
+						emptySpanS="0"
+						columnsXL="1"
+						columnsL="1"
+						columnsM="1"
+						singleContainerFullSize="false">
+						<f:content>
+							<Title text="Basic Information" />
+							<Label text="ID"/>
+							<Text text="{OrderId}"/>
+							<Label text="Customer"/>
+							<Text text="{Customer}"/>
+							<Label text="Document Date"/>
+							<Text text="{path:'DocumentDate', formatter:'.formatter_Date'}"/>
+						</f:content>
+					</f:SimpleForm>
+				</content>
+				<footer>
+					<Toolbar>
+						<ToolbarSpacer/>
+						<Button text="Save" press="onPress_Save" visible="false"/>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>

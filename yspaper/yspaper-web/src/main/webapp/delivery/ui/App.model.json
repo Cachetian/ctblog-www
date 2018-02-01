@@ -1,0 +1,20 @@
+{
+  "config": {
+
+  },
+  "mockdata": {
+    "ItemCollection": [{
+        "ItemId": "IT-001",
+        "Name": "ItemA"
+      },
+      {
+        "ItemId": "IT-001",
+        "Name": "ItemB"
+      },
+      {
+        "ItemId": "IT-001",
+        "Name": "ItemC"
+      }
+    ]
+  }
+}

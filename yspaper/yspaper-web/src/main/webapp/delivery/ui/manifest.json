@@ -1,0 +1,40 @@
+{
+	"sap.app": {
+		"_version": "1.1.0",
+		"id": "yspaper_delivery",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"title": "{{ui5app.tp01.appTitle}}",
+		"description": "{{ui5app.tp01.appDescription}}",
+		"applicationVersion": {
+			"version": "${project.version}"
+		},
+		"dataSources": {
+			"rootDataSource": {
+				"uri": "/yspaper-web/delivery/odata/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0"
+				}
+			}
+		}
+	},
+	"sap.ui5": {
+		"dependencies": {
+			"minUI5Version": "1.48.0"
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"uri": "i18n/i18n.properties"
+			},
+			"": {
+                "dataSource": "rootDataSource",
+                "settings":{
+                	"useBatch": false
+                }
+            }
+		},
+		"rootView": "com.cachetian.ui5app.App"
+	}
+}
