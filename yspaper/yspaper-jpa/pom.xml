@@ -8,6 +8,7 @@
 	</parent>
 	<artifactId>yspaper-jpa</artifactId>
 	<name>yspaper-jpa</name>
+	<version>0.0.1-SNAPSHOT</version>
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
