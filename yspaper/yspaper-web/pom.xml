@@ -52,7 +52,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>yspaper</groupId>
+			<groupId>com.cachetian.www</groupId>
 			<artifactId>yspaper-jpa</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
