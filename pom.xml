@@ -9,5 +9,6 @@
   <url>http://maven.apache.org</url>
   <modules>
   	<module>hello</module>
+  	<module>yspaper</module>
   </modules>
 </project>
