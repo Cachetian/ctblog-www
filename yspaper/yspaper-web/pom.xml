@@ -58,6 +58,6 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>yspapper-web</finalName>
+		<finalName>yspaper-web</finalName>
 	</build>
 </project>
