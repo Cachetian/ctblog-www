@@ -14,7 +14,7 @@ public class RootServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		try (PrintWriter w = res.getWriter()) {
-			w.write("Hello");
+			w.write("Hello - v1 2018-06-02");
 		}
 	}
 }
