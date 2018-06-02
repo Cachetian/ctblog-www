@@ -31,6 +31,7 @@
 				}
 			});
 
+			sap.ui.getCore().setModel(model);
 			// create a mobile app and display page1 initially
 			var app = new sap.m.App("myApp", {
 				initialPage: "page1"
@@ -60,7 +61,8 @@
 									type: "POST",
 									async: false,
 									success: function(data) {
-										sap.m.MessageToast.show(data.result);
+										var oData = JSON.parse(data);
+										sap.m.MessageToast.show(oData.result);
 									},
 									error: function(jqXHR, textStatus, errorThrown) {
 										jQuery.sap.log.error(errorThrown);
