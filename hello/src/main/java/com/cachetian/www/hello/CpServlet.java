@@ -3,6 +3,8 @@ package com.cachetian.www.hello;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @WebServlet("/cp")
-public class RootServlet extends HttpServlet {
+public class CpServlet extends HttpServlet {
 	private static final long serialVersionUID = 9181283319629364771L;
 	private static final StringBuffer sb = new StringBuffer(819200);
 	private static final int bufferSize = 1024;
