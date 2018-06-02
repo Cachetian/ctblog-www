@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta charset="utf-8">
+	<title>CP</title>
+	<script
+		id="sap-ui-bootstrap"
+		src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
+		data-sap-ui-theme="sap_belize"
+		data-sap-ui-libs="sap.m"
+		data-sap-ui-preload="async">
+	</script>
+	<script>
+		sap.ui.getCore().attachInit(function () {
+			var model = new sap.ui.model.json.JSONModel({
+				content: ""
+			});
+
+			jQuery.ajax({
+				url: "/hello/cp",
+				data: model.getData().content,
+				type: "GET",
+				async: false,
+				success: function(data) {
+					model.getData().content = data;
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					jQuery.sap.log.error(errorThrown);
+					sap.m.MessageToast.show("Get oops!");
+				}
+			});
+
+			// create a mobile app and display page1 initially
+			var app = new sap.m.App("myApp", {
+				initialPage: "page1"
+			});
+
+			// create the first page
+			var page1 = new sap.m.Page("page1", {
+				title: "CP Copy and Past",
+				showNavButton: false,
+				content: [new sap.m.VBox("myBox", {
+					items: [
+						new sap.m.TextArea({
+							cols: 800,
+							rows: 600,
+							value: "{/content}"
+						})
+					]
+				})],
+				footer: new sap.m.Toolbar({
+					content: [
+						new sap.m.Button({
+							text: "Post",
+							press: function() {
+								jQuery.ajax({
+									url: "/hello/cp",
+									data: model.getData().content,
+									type: "POST",
+									async: false,
+									success: function(data) {
+										sap.m.MessageToast.show(data.result);
+									},
+									error: function(jqXHR, textStatus, errorThrown) {
+										jQuery.sap.log.error(errorThrown);
+										sap.m.MessageToast.show("Post oops!");
+									}
+								});
+							}
+						})
+					]
+				})
+			});
+
+			// add both pages to the app
+			app.addPage(page1);
+			// place the app into the HTML document
+			app.placeAt("content");
+		});
+	</script>
+</head>
+<body class="sapUiBody" id="content">
+</body>
+</html>
