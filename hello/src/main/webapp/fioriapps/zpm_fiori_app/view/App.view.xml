@@ -1,11 +1,9 @@
-<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:ndc="sap.ndc"
-	controllerName="zpm_fiori_app.controller.App" displayBlock="true">
+<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:ndc="sap.ndc" controllerName="zpm_fiori_app.controller.App" displayBlock="true">
 	<App>
 		<pages>
-			<Page title="{i18n>title}">
+			<Page title="{i18n>title}" showNavButton="true" navButtonPress="onNavButtonPress">
 				<content>
-					<ObjectHeader title="Fiori App" number="fiori app" numberUnit="firoi app" intro="Fiori App" introActive="true" titleActive="true"
-						id="__header0"/>
+					<ObjectHeader title="Fiori App" number="fiori app" numberUnit="firoi app" intro="Fiori App" introActive="true" titleActive="true" id="__header0"/>
 				</content>
 				<footer>
 					<Toolbar width="100%" id="__toolbar1">
