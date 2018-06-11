@@ -22,7 +22,7 @@ sap.ui.define([
 			var oCompCon = new sap.ui.core.ComponentContainer();
 			oCompCon.setComponent(oComp);
 			oComp.setFlp(oApp);
-			oToPage.addContent(oCompCon);
+			oToPage.addContent(oComp.getAggregation("rootControl").getAggregation("content")["0"].getAggregation("pages")["0"]);
 			oApp.to(oToPage);
 		}
 	});
