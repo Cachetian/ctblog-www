@@ -1,0 +1,22 @@
+<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:ndc="sap.ndc"
+	controllerName="zpm_fiori_app.controller.App" displayBlock="true">
+	<App>
+		<pages>
+			<Page title="{i18n>title}">
+				<content>
+					<ObjectHeader title="Fiori App" number="fiori app" numberUnit="firoi app" intro="Fiori App" introActive="true" titleActive="true"
+						id="__header0"/>
+				</content>
+				<footer>
+					<Toolbar width="100%" id="__toolbar1">
+						<content>
+							<ToolbarSpacer id="__spacer0"/>
+							<ndc:BarcodeScannerButton scanSuccess="onScanSuccess" scanFail="onScanFail"/>
+							<Button text="Button" width="100px" id="__button0" press="onPress_Button0"/>
+						</content>
+					</Toolbar>
+				</footer>
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
