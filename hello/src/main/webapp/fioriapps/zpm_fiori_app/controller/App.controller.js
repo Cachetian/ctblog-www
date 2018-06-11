@@ -3,11 +3,11 @@ sap.ui.define(["sap/ui/core/mvc/Controller"], function(Controller) {
 	return Controller.extend("zpm_fiori_app.controller.App", {
 
 		onScanSuccess: function(oEvent) {
-			var bCancelled = oEvent.getParameters("cancelled");
+			var bCancelled = oEvent.getParameter("cancelled");
 			if (bCancelled) {
 				sap.m.MessageToast.show("Cancelled");
 			} else {
-				sap.m.MessageToast.show("Format:" + oEvent.getParameters("format") + ", Scanned:" + oEvent.getParameters("text"));
+				sap.m.MessageToast.show("Format:" + oEvent.getParameter("format") + ", Scanned:" + oEvent.getParameter("text"));
 			}
 		},
 
