@@ -5,6 +5,8 @@ sap.ui.define([
 ], function(UIComponent, Device, models) {
 	"use strict";
 
+	var oFlp;
+
 	return UIComponent.extend("zpm_fiori_app.Component", {
 
 		metadata: {
@@ -22,6 +24,17 @@ sap.ui.define([
 
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
+
+			oFlp = null;
+		},
+
+		setFlp: function(oApp) {
+			oFlp = oApp;
+		},
+
+		getFlp: function() {
+			return oFlp;
 		}
+
 	});
 });

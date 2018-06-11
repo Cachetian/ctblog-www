@@ -3,25 +3,27 @@ sap.ui.define([
 ], function(Controller) {
 	"use strict";
 
-	var oToPage;
-	
+	var oApp, oToPage;
+
 	return Controller.extend("zpm_fiori_launchpad.controller.Root", {
-		
-		onInit: function(){
+
+		onInit: function() {
+			oApp = this.getView().byId("app");
 			oToPage = new sap.m.Page();
-			this.getView().byId("app").addPage(oToPage);
+			oApp.addPage(oToPage);
 		},
-		
+
 		onPress_tile01: function(oEvent) {
 			oToPage.removeAllContent();
 			var oComp = sap.ui.getCore().createComponent({
 				name: "zpm_fiori_app",
-				url: "/fioriapps/zpm_fiori_app"
+				url: "../fioriapps/zpm_fiori_app"
 			});
 			var oCompCon = new sap.ui.core.ComponentContainer();
 			oCompCon.setComponent(oComp);
+			oComp.setFlp(oApp);
 			oToPage.addContent(oCompCon);
-			this.getView().byId("app").to(oToPage);
+			oApp.to(oToPage);
 		}
 	});
 });
