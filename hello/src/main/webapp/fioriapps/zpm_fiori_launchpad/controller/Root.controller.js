@@ -17,7 +17,7 @@ sap.ui.define([
 			oToPage.removeAllContent();
 			var oComp = sap.ui.getCore().createComponent({
 				name: "zpm_fiori_app",
-				url: "../fioriapps/zpm_fiori_app"
+				url: "../zpm_fiori_app"
 			});
 			var oCompCon = new sap.ui.core.ComponentContainer();
 			oCompCon.setComponent(oComp);
