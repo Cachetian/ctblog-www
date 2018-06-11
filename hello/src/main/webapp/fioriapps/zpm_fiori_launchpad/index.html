@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8">
+
+		<title>Fiori Launchpad</title>
+
+		<script id="sap-ui-bootstrap"
+			src="https://sapui5.hana.ondemand.com/resources/sap-ui-core.js"
+			data-sap-ui-libs="sap.m"
+			data-sap-ui-theme="sap_belize"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-resourceroots='{"zpm_fiori_launchpad": ""}'>
+		</script>
+
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+
+		<script>
+			sap.ui.getCore().attachInit(function() {
+				new sap.ui.core.ComponentContainer({
+					height : "100%",
+					name : "zpm_fiori_launchpad"
+				}).placeAt("content");
+			});
+		</script>
+	</head>
+
+	<body class="sapUiBody" id="content">
+		<div class="app">
+            <h1>Apache Cordova</h1>
+            <div id="deviceready" class="blink">
+                <p class="event listening">Connecting to Device</p>
+                <p class="event received">Device is Ready</p>
+            </div>
+        </div>
+		<script type="text/javascript" src="file:///android_asset/cordova.js"></script>
+    	<script type="text/javascript" src="file:///android_asset/js/index.js"></script>
+	</body>
+</html>

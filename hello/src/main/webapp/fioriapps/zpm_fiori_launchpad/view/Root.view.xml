@@ -1,0 +1,50 @@
+<mvc:View xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="zpm_fiori_launchpad.controller.Root" displayBlock="true">
+	<Shell>
+		<app>
+			<App id="app">
+				<pages>
+					<Page title="Home" id="__page0" class="sapUiResponsiveContentPadding">
+						<content>
+							<GenericTile class="sapUiResponsiveMargin tileLayout" header="Fiori App Title" subheader="Fiori App" press="onPress_tile01">
+								<TileContent unit="Fiori App" footer="Fiori App">
+									<ImageContent src="sap-icon://sap-ui5"/>
+								</TileContent>
+							</GenericTile>
+							<GenericTile class="sapUiResponsiveMargin tileLayout" header="Fiori App Title" subheader="Fiori App" press="onPress_tile01">
+								<TileContent unit="Fiori App" footer="Fiori App">
+									<ImageContent src="sap-icon://sap-ui5"/>
+								</TileContent>
+							</GenericTile>
+							<GenericTile class="sapUiResponsiveMargin tileLayout" header="Fiori App Title" subheader="Fiori App" press="onPress_tile01">
+								<TileContent unit="Fiori App" footer="Fiori App">
+									<ImageContent src="sap-icon://sap-ui5"/>
+								</TileContent>
+							</GenericTile>
+							<GenericTile class="sapUiResponsiveMargin tileLayout" header="Fiori App Title" subheader="Fiori App" press="onPress_tile01">
+								<TileContent unit="Fiori App" footer="Fiori App">
+									<ImageContent src="sap-icon://sap-ui5"/>
+								</TileContent>
+							</GenericTile>
+							<GenericTile class="sapUiResponsiveMargin tileLayout" header="Fiori App Title" subheader="Fiori App" press="onPress_tile01">
+								<TileContent unit="Fiori App" footer="Fiori App">
+									<ImageContent src="sap-icon://sap-ui5"/>
+								</TileContent>
+							</GenericTile>
+							<GenericTile class="sapUiResponsiveMargin tileLayout" header="Fiori App Title" subheader="Fiori App" press="onPress_tile01">
+								<TileContent unit="Fiori App" footer="Fiori App">
+									<ImageContent src="sap-icon://sap-ui5"/>
+								</TileContent>
+							</GenericTile>
+							<GenericTile class="sapUiResponsiveMargin tileLayout" header="Fiori App Title" subheader="Fiori App" press="onPress_tile01">
+								<TileContent unit="Fiori App" footer="Fiori App">
+									<ImageContent src="sap-icon://sap-ui5"/>
+								</TileContent>
+							</GenericTile>
+						</content>
+					</Page>
+				</pages>
+			</App>
+		</app>
+	</Shell>
+</mvc:View>
