@@ -41,6 +41,26 @@
 			var page1 = new sap.m.Page("page1", {
 				title: "CP Copy and Past",
 				showNavButton: false,
+				headerContent: [
+					new sap.m.Button({
+						icon: "sap-icon://refresh",
+						press: function() {
+							jQuery.ajax({
+								url: "/hello/cp",
+								type: "GET",
+								async: false,
+								success: function(data) {
+									model.getData().content = data;
+									model.refresh();
+								},
+								error: function(jqXHR, textStatus, errorThrown) {
+									jQuery.sap.log.error(errorThrown);
+									sap.m.MessageToast.show("Get oops!");
+								}
+							});
+						}
+					})
+				],
 				content: [new sap.m.VBox("myBox", {
 					items: [
 						new sap.m.TextArea({
