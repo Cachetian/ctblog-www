@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CpServlet extends HttpServlet {
 	private static final long serialVersionUID = 9181283319629364771L;
 	private static final StringBuffer sb = new StringBuffer(819200);
-	private static final int bufferSize = 1024;
+	private static final int bufferSize = 50000;
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		try (PrintWriter w = res.getWriter()) {
 			w.write(sb.toString());
