@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta charset="utf-8">
-	<title>CloudCP云贴 v20191215</title>
+	<title>云贴CloudCP v20191215</title>
 	<script
 		id="sap-ui-bootstrap"
 		src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
@@ -39,7 +39,7 @@
 
 			// create the first page
 			var page1 = new sap.m.Page("page1", {
-				title: "CP Copy and Past",
+				title: "云贴 - Cloud Copy Past",
 				showNavButton: false,
 				headerContent: [
 					new sap.m.Button({
@@ -51,7 +51,7 @@
 								async: false,
 								success: function(data) {
 									model.getData().content = data;
-									model.refresh();	
+									model.refresh();
                   sap.ui.getCore().byId("myTextArea").getDomRef().firstChild.firstChild.select();
                   document.execCommand("copy");
                   sap.m.MessageToast.show("Copied");
@@ -66,7 +66,7 @@
 				],
 				content: [new sap.m.VBox("myBox", {
 					items: [
-						new sap.m.TextArea({
+						new sap.m.TextArea("myTextArea", {
 							cols: 800,
 							rows: 600,
 							value: "{/content}"
