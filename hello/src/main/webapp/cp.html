@@ -3,105 +3,211 @@
 <head>
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta charset="utf-8">
-	<title>云贴CloudCP v20191215</title>
+	<title>云贴 CloudCP</title>
 	<script
 		id="sap-ui-bootstrap"
 		src="https://openui5.hana.ondemand.com/resources/sap-ui-core.js"
 		data-sap-ui-theme="sap_belize"
+		data-sap-ui-bindingSyntax="complex"
 		data-sap-ui-libs="sap.m"
 		data-sap-ui-preload="async">
 	</script>
 	<script>
 		sap.ui.getCore().attachInit(function () {
-			var model = new sap.ui.model.json.JSONModel({
-				content: ""
+			// MVC - M Models
+			var oViewModel = new sap.ui.model.json.JSONModel({
+				info: {
+					textCount: 0
+				},
+				buttons: {
+					CreateMyNode: {
+						visible: false
+					},
+					GetMyNode: {
+						visible: false
+					},
+					SelectAllText: {
+						visible: false
+					},
+					SaveText: {
+						visible: false
+					},
+					Refresh: {
+						visible: false
+					}
+				}
+			});
+			sap.ui.getCore().setModel(oViewModel, "appView");
+			var oDataModel = new sap.ui.model.json.JSONModel("/api/model_data");
+			sap.ui.getCore().setModel(oDataModel, "appData");
+			var oFilesModel = new sap.ui.model.json.JSONModel("/api/file_data");
+			sap.ui.getCore().setModel(oFilesModel, "appFiles");
+			var oConfigModel = new sap.ui.model.json.JSONModel("/api/config_data");
+			sap.ui.getCore().setModel(oConfigModel, "appConfig");
+
+			oDataModel.dataLoaded().then(function() {
+				oViewModel.setProperty("/info/textCount", oDataModel.getProperty("/myText").length);
 			});
 
-			jQuery.ajax({
-				url: "/hello/cp",
-				data: model.getData().content,
-				type: "GET",
-				async: false,
-				success: function(data) {
-					model.getData().content = data;
-				},
-				error: function(jqXHR, textStatus, errorThrown) {
-					jQuery.sap.log.error(errorThrown);
-					sap.m.MessageToast.show("Get oops!");
+			oConfigModel.dataLoaded().then(function() {
+				var aBtns = oConfigModel.getProperty("/VISIBLE_BUTTONS");
+				for (var i = 0; i < aBtns.length; i++) {
+					oViewModel.setProperty("/buttons/" + aBtns[i], true);
 				}
 			});
 
-			sap.ui.getCore().setModel(model);
-			// create a mobile app and display page1 initially
-			var app = new sap.m.App("myApp", {
-				initialPage: "page1"
-			});
+			var oController = {
+				events: {
+					onAfterRendering: function() {}
+				},
+				actions: {
+					get_files: function() {},
+					get_model_data: function(oEvent) {
+						jQuery.get("/api/model_data", function(data) {
+							oDataModel.setData(data);
+							oFilesModel.refresh();
+						});
+						jQuery.get("/api/file_data", function(data) {
+							oFilesModel.setData(data);
+							oFilesModel.refresh();
+						});
+					}
+				}
+			};
 
-			// create the first page
-			var page1 = new sap.m.Page("page1", {
-				title: "云贴 - Cloud Copy Past",
-				showNavButton: false,
-				headerContent: [
-					new sap.m.Button({
-						icon: "sap-icon://refresh",
-						press: function() {
-							jQuery.ajax({
-								url: "/hello/cp",
-								type: "GET",
-								async: false,
-								success: function(data) {
-									model.getData().content = data;
-									model.refresh();
-                  sap.ui.getCore().byId("myTextArea").getDomRef().firstChild.firstChild.select();
-                  document.execCommand("copy");
-                  sap.m.MessageToast.show("Copied");
+			// MCV - V&C View and Controller
+			var myApp = new sap.m.App("myApp", {
+				pages: [
+					new sap.m.Page("myPage", {
+						title: "{appConfig>/APP_TITLE}",
+						showHeader: true,
+						showNavButton: false,
+						headerContent: [
+							new sap.m.Button({
+								icon: "sap-icon://refresh",
+								visible: "{appView>/buttons/Refresh/visible}",
+								press: oController.actions.get_model_data.bind(this)
+							})
+						],
+						content: [
+							new sap.m.TextArea("myTextArea", {
+								width: "100%",
+								rows: 24,
+								maxLength: 4096,
+								value: "{appData>/myText}",
+								liveChange: function(oEvent) {
+									oViewModel.setProperty("/info/textCount", oEvent.getParameter("value").length);
+									oViewModel.refresh();
+								}
+							}),
+							new sap.m.UploadCollection("myUploadCollection", {
+								maximumFileSize: 16384,
+								uploadEnabled: true,
+								uploadUrl: "/api/file_data",
+								beforeUploadStarts: function(oEvent) {
+									// Header Slug
+									var oCustomerHeaderSlug = new sap.m.UploadCollectionParameter({
+										name: "slug",
+										value: encodeURIComponent(oEvent.getParameter("fileName"))
+									});
+									oEvent.getParameters().addHeaderParameter(oCustomerHeaderSlug);
 								},
-								error: function(jqXHR, textStatus, errorThrown) {
-									jQuery.sap.log.error(errorThrown);
-									sap.m.MessageToast.show("Get oops!");
+								uploadComplete: function(oEvent) {
+									jQuery.get("/api/file_data", function(data) {
+										oFilesModel.setData(data);
+										oFilesModel.refresh();
+									});
+								}
+							})
+						],
+						footer: new sap.m.OverflowToolbar({
+							content: [
+								new sap.m.Button({
+									text: "Post Text",
+									visible: "{appView>/buttons/SaveText/visible}",
+									press: function(oEvent) {
+										jQuery.post("/api/model_data", JSON.stringify(oDataModel.getData()), function(data) {
+											sap.m.MessageToast.show(data.result);
+										});
+									},
+								}),
+								new sap.m.Text({
+									text: "Total words:"
+								}),
+								new sap.m.Text({
+									text: "{appView>/info/textCount}"
+								}),
+								new sap.m.ToolbarSpacer(),
+								new sap.m.Button({
+									text: "Create MyNode",
+									visible: "{appView>/buttons/CreateMyNode/visible}",
+									press: function() {
+										jQuery.post("/api/my_node", JSON.stringify({
+											"name": "myName",
+											"value": "myValue"
+										}), function(res) {
+											sap.m.MessageToast.show(res);
+										});
+									}
+								}), new sap.m.Button({
+									text: "Get MyNode",
+									visible: "{appView>/buttons/GetMyNode/visible}",
+									press: function() {
+										jQuery.get("/api/my_node", function(data) {
+											sap.m.MessageToast.show(data);
+										});
+									},
+								}), new sap.m.Button({
+									text: "Select All Text and Copy",
+									visible: "{appView>/buttons/SelectAllText/visible}",
+									press: function(oEvent) {
+										sap.ui.getCore().byId("myTextArea").getDomRef().firstChild.firstChild.select();
+										document.execCommand("copy");
+										sap.m.MessageToast.show("Copied");
+									},
+								})
+							]
+						})
+					})
+				]
+			});
+			myApp.addEventDelegate({
+				onAfterRendering: function() {
+					sap.ui.getCore().byId("myUploadCollection").bindItems({
+						path: "appFiles>/items",
+						factory: function(id, context) {
+							return new sap.m.UploadCollectionItem(id, {
+								fileName: "{appFiles>fileName}",
+								mimeType: "{appFiles>mimeType}",
+								url: "{appFiles>url}",
+								visibleEdit: false,
+								multiple: false,
+								deletePress: function(oEvent) {
+									var oItem = oEvent.getSource();
+									sap.m.MessageBox.confirm("delete?", {
+										onClose: function(sAction) {
+											if (sAction === sap.m.MessageBox.Action.OK) {
+												jQuery.ajax({
+													url: "/api/file_data('" + oItem.getFileName() + "')",
+													type: 'DELETE',
+													success: function(data) {
+														sap.m.MessageToast.show(data.result);
+														jQuery.get("/api/file_data", function(data) {
+															oFilesModel.setData(data);
+															oFilesModel.refresh();
+														});
+													}
+												});
+											}
+										}
+									});
 								}
 							});
 						}
-					})
-				],
-				content: [new sap.m.VBox("myBox", {
-					items: [
-						new sap.m.TextArea("myTextArea", {
-							cols: 800,
-							rows: 600,
-							value: "{/content}"
-						})
-					]
-				})],
-				footer: new sap.m.Toolbar({
-					content: [
-						new sap.m.Button({
-							text: "Post",
-							press: function() {
-								jQuery.ajax({
-									url: "/hello/cp",
-									data: model.getData().content,
-									type: "POST",
-									async: false,
-									success: function(data) {
-										var oData = JSON.parse(data);
-										sap.m.MessageToast.show(oData.result);
-									},
-									error: function(jqXHR, textStatus, errorThrown) {
-										jQuery.sap.log.error(errorThrown);
-										sap.m.MessageToast.show("Post oops!");
-									}
-								});
-							}
-						})
-					]
-				})
+					});
+				}.bind(this)
 			});
-
-			// add both pages to the app
-			app.addPage(page1);
-			// place the app into the HTML document
-			app.placeAt("content");
+			myApp.placeAt("content");
 		});
 	</script>
 </head>
