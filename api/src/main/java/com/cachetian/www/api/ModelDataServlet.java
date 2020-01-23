@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Reader;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +17,11 @@ public class ModelDataServlet extends HttpServlet {
 	private static final int BUFF_SIZE = 4096;
 	private static final int BUFF_SIZE_SWAP = 512;
 	private static final StringBuffer stringBuffer = new StringBuffer(BUFF_SIZE + 13);
+
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		stringBuffer.append("{\"myText\":\"\"}");
+	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		res.setCharacterEncoding("UTF-8");
