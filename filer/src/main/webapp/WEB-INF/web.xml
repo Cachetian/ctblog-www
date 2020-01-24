@@ -39,7 +39,7 @@
 			<url-pattern>/*</url-pattern>
 		</web-resource-collection>
 		<auth-constraint>
-			<role-name>manager-gui</role-name>
+			<role-name>filer</role-name>
 		</auth-constraint>
 	</security-constraint>
 
@@ -54,7 +54,7 @@
 		<description>
       The role that is required to log in to the filer
     </description>
-		<role-name>manager-gui</role-name>
+		<role-name>filer</role-name>
 	</security-role>
 
 	<welcome-file-list>
