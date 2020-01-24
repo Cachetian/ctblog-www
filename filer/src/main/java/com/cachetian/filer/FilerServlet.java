@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class AdminServlet
  */
-@WebServlet("/filer")
+//@WebServlet("/filer")
 public class FilerServlet  extends HttpServlet {
 
 	/**
