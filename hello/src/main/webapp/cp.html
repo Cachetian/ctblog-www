@@ -104,6 +104,7 @@
 								maximumFileSize: 16384,
 								uploadEnabled: true,
 								uploadUrl: "/api/file_data",
+								multiple: false,
 								beforeUploadStarts: function(oEvent) {
 									// Header Slug
 									var oCustomerHeaderSlug = new sap.m.UploadCollectionParameter({
@@ -181,7 +182,6 @@
 								mimeType: "{appFiles>mimeType}",
 								url: "{appFiles>url}",
 								visibleEdit: false,
-								multiple: false,
 								deletePress: function(oEvent) {
 									var oItem = oEvent.getSource();
 									sap.m.MessageBox.confirm("delete?", {
