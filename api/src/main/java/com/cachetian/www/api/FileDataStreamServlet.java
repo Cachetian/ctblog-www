@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/*")
 public class FileDataStreamServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String FILE_ROOT = "./temp_upload";
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		try (ServletOutputStream w = res.getOutputStream()) {
@@ -36,7 +35,7 @@ public class FileDataStreamServlet extends HttpServlet {
 		        }
 				res.setContentType(mimeType);
 				res.setHeader("Content-Disposition", "attachment; filename=\"" + URLEncoder.encode(fileName, StandardCharsets.UTF_8.toString()) + "\"");
-				w.write(Files.readAllBytes(Paths.get(FILE_ROOT).resolve(fileName)));
+				w.write(Files.readAllBytes(Paths.get(FileDataConst.FILE_DATA_DIR).resolve(fileName)));
 			}
 		}
 	}
@@ -49,7 +48,7 @@ public class FileDataStreamServlet extends HttpServlet {
 			if (pathInfo.startsWith("/file_data(") && pathInfo.endsWith(")")) {
 				// '/file_data('*')/$value'
 				String fileName = pathInfo.substring(12, pathInfo.length() - 2);
-				Files.delete(Paths.get(FILE_ROOT).resolve(fileName));
+				Files.delete(Paths.get(FileDataConst.FILE_DATA_DIR).resolve(fileName));
 				w.write("{\"result\":\"success\"}");
 			}
 		}

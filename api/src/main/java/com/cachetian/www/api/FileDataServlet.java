@@ -6,6 +6,8 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,15 +16,19 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/file_data")
 public class FileDataServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private static final String FILE_ROOT = "./temp_upload";
 
+	public void init(ServletConfig config) throws ServletException {
+		super.init(config);
+		FileDataConst.FILE_DATA_DIR = Paths.get(System.getProperty("catalina.base")).resolve("upload").toString();
+	}
+	
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		res.setCharacterEncoding("UTF-8");
-	    res.setContentType("application/json");
+		res.setContentType("application/json");
 		try (PrintWriter w = res.getWriter()) {
 			StringBuffer sb = new StringBuffer(4096);
 			sb.append("{\"items\":[");
-			File dir = new File(FILE_ROOT);
+			File dir = new File(FileDataConst.FILE_DATA_DIR);
 			if (!dir.exists()) {
 				dir.mkdir();
 			}
@@ -46,7 +52,7 @@ public class FileDataServlet extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("application/json");
 		String fileName = req.getHeader("slug");
-		Files.copy(req.getInputStream(), Paths.get(FILE_ROOT).resolve(fileName));
+		Files.copy(req.getInputStream(), Paths.get(FileDataConst.FILE_DATA_DIR).resolve(fileName));
 		try (PrintWriter w = res.getWriter()) {
 			w.write("{\"result\":\"success\"}");
 		}
