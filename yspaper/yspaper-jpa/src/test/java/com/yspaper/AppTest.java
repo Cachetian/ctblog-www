@@ -24,7 +24,7 @@ public class AppTest {
 		EntityManager em = factory.createEntityManager();
 		// read the existing entries and write to console
 		Query q = em.createQuery("select o from Order o");
-		List<Object> orderList = q.getResultList();
+		List<?> orderList = q.getResultList();
 		for (Object order : orderList) {
 			System.out.println(order);
 		}
@@ -40,7 +40,7 @@ public class AppTest {
 
 		// read the existing entries and write to console
 		Query itemQ = em.createQuery("select i from Item i");
-		List<Object> itemList = itemQ.getResultList();
+		List<?> itemList = itemQ.getResultList();
 		for (Object item : itemList) {
 			System.out.println(item);
 		}
