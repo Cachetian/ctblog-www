@@ -1,0 +1,17 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.cachetian.www</groupId>
+  <artifactId>ctblog-ums</artifactId>
+  <version>1.0</version>
+  <packaging>pom</packaging>
+  <name>ctblog-ums</name>
+  <modules>
+  	<module>ctblog-ums-jpa</module>
+  	<module>ctblog-ums-web</module>
+  </modules>
+  <parent>
+  	<groupId>com.cachetian</groupId>
+  	<artifactId>www</artifactId>
+  	<version>1.0</version>
+  </parent>
+</project>
