@@ -14,3 +14,7 @@ mock_preview_sapui5.html
 .settings
 .classpath
 .idea
+target
+.vscode
+*.log
+derby
